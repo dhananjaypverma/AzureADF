@@ -1,0 +1,28 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Input",
+						"type": "DatasetReference"
+					},
+					"name": "CopyFile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Output",
+						"type": "DatasetReference"
+					},
+					"name": "SaveData"
+				}
+			],
+			"transformations": [],
+			"script": "source(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> CopyFile\nCopyFile sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['data.csv'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> SaveData"
+		}
+	}
+}
