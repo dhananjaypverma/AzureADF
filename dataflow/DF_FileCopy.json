@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "DF_FileCopy",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
